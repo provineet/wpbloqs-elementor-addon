@@ -28,6 +28,8 @@ abstract class meta
         ) {
             return;
         }
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-sortable');
         wp_enqueue_script('wpb_meta_script', WPBEL_ASSET_URL . '/js/wpb_meta.js', array('jquery'), '1.0');
         wp_register_style('wpb_meta_style', WPBEL_ASSET_URL . '/css/wpb_meta.css', false, '1.0.0');
         wp_enqueue_style('wpb_meta_style');

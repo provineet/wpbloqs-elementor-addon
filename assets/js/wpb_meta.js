@@ -31,4 +31,5 @@ jQuery(document).ready(function ($) {
         $(`#${$(this).data('id')}`).remove();
     });
 
+    $( "#sortable" ).sortable();
 });

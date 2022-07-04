@@ -65,7 +65,7 @@ abstract class Anchor_Tabs
         $anchors = get_post_meta($post->ID, '_wpb_anchor_tabs', true);
 ?>
         <div class="anchor_group">
-            <div class="wpb_fields">
+            <div class="wpb_fields" id="sortable">
                 <?php if (empty($anchors)) {
                     $anchors = ['', ''];
                 }
