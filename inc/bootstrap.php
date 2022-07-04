@@ -1,6 +1,6 @@
 <?php
 
-namespace WPBLOQS_ELEMENTOR_ADDONS\Classes;
+namespace WPBLOQS_ELEMENTOR_ADDONS;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -39,6 +39,10 @@ class Bootstrap
      */
     private function __construct()
     {
+        // Elementor Dynamic Tags
         new \WPBLOQS_ELEMENTOR_ADDONS\DYNAMIC_TAGS\Dynamic_Tags_Loader;
+
+        // Register Post Meta
+        \WPBLOQS_ELEMENTOR_ADDONS\META\meta::register_meta();
     }
 }
