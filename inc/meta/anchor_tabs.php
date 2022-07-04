@@ -45,11 +45,11 @@ abstract class Anchor_Tabs
             if (!empty($values)) {
                 update_post_meta(
                     $post_id,
-                    '_wpb_anchor_tabs',
+                    'wpb_anchor_tabs',
                     $values
                 );
             } else {
-                delete_post_meta($post_id, '_wpb_anchor_tabs');
+                delete_post_meta($post_id, 'wpb_anchor_tabs');
             }
         }
     }
@@ -62,12 +62,12 @@ abstract class Anchor_Tabs
      */
     public static function html($post)
     {
-        $anchors = get_post_meta($post->ID, '_wpb_anchor_tabs', true);
+        $anchors = get_post_meta($post->ID, 'wpb_anchor_tabs', true);
 ?>
         <div class="anchor_group">
             <div class="wpb_fields" id="sortable">
                 <?php if (empty($anchors)) {
-                    $anchors = ['', ''];
+                    $anchors = [['', '']];
                 }
                 $count = 1; ?>
                 <?php foreach ($anchors as $anchor) : ?>
