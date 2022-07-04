@@ -1,2 +1,2 @@
 # wpbloqs-elementor-addon
-A custom plugin that extends the functionality of Elementor Plugin.
+A custom plugin that extends the functionality of Elementor WordPress Plugin.
