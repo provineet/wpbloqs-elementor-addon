@@ -2,6 +2,10 @@
 
 namespace WPBLOQS_ELEMENTOR_ADDONS\DYNAMIC_TAGS;
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
+}
+
 class Dynamic_Tags_Loader
 {
 

@@ -2,6 +2,10 @@
 
 namespace WPBLOQS_ELEMENTOR_ADDONS\META;
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
+}
+
 abstract class meta
 {
     public static $meta_boxes;
