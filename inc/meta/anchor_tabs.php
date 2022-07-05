@@ -36,20 +36,27 @@ abstract class Anchor_Tabs
         if (array_key_exists('wpb_anchor_id', $_POST)) {
 
             $values = [];
+            $list = '';
             for ($i = 0; $i < count($_POST['wpb_anchor_id']); $i++) {
-                if (($_POST['wpb_anchor_id'][$i] <> '') && ($_POST['wpb_tab_label'][$i] <> '')) {
+                if (($_POST['wpb_anchor_id'][$i] !== '') && ($_POST['wpb_tab_label'][$i] !== '')) {
                     $values[] = [$_POST['wpb_anchor_id'][$i], $_POST['wpb_tab_label'][$i]];
+                    $list .= '<a href="#' . $_POST['wpb_anchor_id'][$i] . '">' . $_POST['wpb_tab_label'][$i] . '</a>';
                 }
             }
 
             if (!empty($values)) {
                 update_post_meta(
                     $post_id,
-                    'wpb_anchor_tabs',
+                    '_wpb_anchor_tabs',
                     $values
                 );
+                update_post_meta(
+                    $post_id,
+                    'wpb_anchor_tabs',
+                    $list
+                );
             } else {
-                delete_post_meta($post_id, 'wpb_anchor_tabs');
+                delete_post_meta($post_id, '_wpb_anchor_tabs');
             }
         }
     }
@@ -62,7 +69,7 @@ abstract class Anchor_Tabs
      */
     public static function html($post)
     {
-        $anchors = get_post_meta($post->ID, 'wpb_anchor_tabs', true);
+        $anchors = get_post_meta($post->ID, '_wpb_anchor_tabs', true);
 ?>
         <div class="anchor_group">
             <div class="wpb_fields" id="sortable">
