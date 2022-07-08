@@ -43,6 +43,9 @@ class Bootstrap
         new \WPBLOQS_ELEMENTOR_ADDONS\DYNAMIC_TAGS\Dynamic_Tags_Loader;
 
         // Register Post Meta
-        \WPBLOQS_ELEMENTOR_ADDONS\META\meta::register_meta();
+        \WPBLOQS_ELEMENTOR_ADDONS\META\Meta::register_meta();
+
+        // Register WPBloqs Elementor Widgets
+        \WPBLOQS_ELEMENTOR_ADDONS\WIDGETS\Loader::init();
     }
 }

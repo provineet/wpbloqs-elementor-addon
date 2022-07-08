@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-abstract class meta
+abstract class Meta
 {
     public static $meta_boxes;
 

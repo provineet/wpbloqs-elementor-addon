@@ -1,0 +1,37 @@
+{
+    "editor.formatOnSave": true,
+    "[php]": {
+        // "editor.formatOnSave": false
+    },
+    "phpsab.fixerEnable": true,
+    // // "phpsab.fixerArguments": ["-n", "--ignore=tests/*"]
+    "phpsab.snifferEnable": true,
+    // // "phpsab.snifferArguments": ["-n", "--ignore=tests/*"]
+    "phpsab.standard": "WordPress",
+	"phpsab.debug": false,
+    "phpfmt.enable_auto_align": true,
+    "phpfmt.passes": [
+        "AlignPHPCode",
+        "LongArray",
+        "SpaceAroundParentheses",
+        "MergeElseIf",
+        "PrettyPrintDocBlocks",
+        "GeneratePHPDoc",
+        "ConvertOpenTagWithEcho",
+        "AutoSemicolon",
+        "YodaComparisons",
+        "StripExtraCommaInArray"
+    ],
+    "prettier.useEditorConfig": false,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+    "html.format.contentUnformatted": "pre,code,textarea",
+    "html.format.endWithNewline": true,
+    "html.format.extraLiners": "head, body, /html",
+    "html.format.indentHandlebars": false,
+    "html.format.indentInnerHtml": false,
+    "html.format.maxPreserveNewLines": null,
+    "html.format.preserveNewLines": true,
+    // "html.format.wrapLineLength": 120,
+    "html.format.wrapAttributes": "auto",
+}
