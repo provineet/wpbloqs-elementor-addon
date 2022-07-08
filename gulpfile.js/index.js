@@ -7,7 +7,6 @@ const { minify } = require("./minify");
 const { scripts } = require("./scripts");
 const { imgmin } = require("./imagemin");
 const { sprites } = require("./sprites");
-const { copyassets, fonts } = require("./copyassets");
 const { watch } = require("./watch");
 
 const { build, devbuild } = require("./createdist");
@@ -26,7 +25,6 @@ module.exports = {
   serve,
   build,
   devbuild,
-  copyassets,
   minify,
   scss,
   scripts,
