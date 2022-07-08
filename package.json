@@ -4,32 +4,19 @@
   "description": "A WordPress plugin that adds up beautiful widgets, dynamic tags and more to extend the WordPress Elementor Plugin.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp copyassets",
     "serve": "gulp serve",
     "build": "gulp build",
-    "devbuild": "gulp devbuild",
-    "copy-vendors": "gulp copyassets"
+    "devbuild": "gulp devbuild"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vineet05/bootflow.git"
   },
   "keywords": [
-    "Bootstrap",
-    "starter",
-    "kit",
-    "bootstrap",
-    "boilerplate",
-    "frontend",
-    "boilerplate",
-    "bootstrap",
-    "gulp",
-    "bootstrap",
-    "webpack",
-    "gulp",
-    "and",
-    "webpack",
-    "frontend"
+    "Elementor Addons",
+    "Elementor Widgets",
+    "Elementor Extension",
+    "Elementor Dynamic Widgets"
   ],
   "author": "Vineet Verma",
   "license": "GPL-3.0",
@@ -51,8 +38,6 @@
     ]
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.1.1",
-    "bootstrap": "^5.1.3",
     "browser-sync": "^2.27.10",
     "cli-handle-unhandled": "^1.1.1",
     "del": "^6.1.1",
@@ -71,7 +56,6 @@
     "gulp-terser-js": "^5.2.2",
     "gulp-zip": "^5.1.0",
     "gulp.spritesmith": "^6.13.0",
-    "jquery": "^3.6.0",
     "merge-stream": "^2.0.0",
     "npm-check": "^5.9.2",
     "terser": "^5.14.1",
