@@ -12,14 +12,11 @@ const autoPrefixer = require("gulp-autoprefixer");
 const cleanCSS = require("gulp-clean-css");
 const rename = require("gulp-rename");
 
-// Complies assets_src/scss/vendors.scss
-function vendorscss() {
-  return processScss(`${PATHS.src.scss}/vendors.scss`, { sourcemaps: true });
-}
-
 // Compiles assets_src/scss/style.scss
-function themescss() {
-  return processScss(`${PATHS.src.scss}/style.scss`, { sourcemaps: true });
+function allScss() {
+  return processScss([`${PATHS.src.scss}/*.scss`, `${PATHS.src.scss}/*.css`], {
+    sourcemaps: true,
+  });
 }
 
 function processScss(source, srcObj = {}) {
@@ -61,6 +58,6 @@ function processScss(source, srcObj = {}) {
     );
 }
 
-const scss = parallel(themescss, vendorscss);
+const scss = parallel(allScss);
 
-module.exports = { scss, vendorscss, themescss };
+module.exports = { scss };

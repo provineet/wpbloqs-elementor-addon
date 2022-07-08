@@ -25,19 +25,9 @@ const gulpIgnore = require("gulp-ignore");
 
 // const unhandledError = require("cli-handle-unhandled");
 
-// COPIES JS FROM /src/vendors to assets/js
-// Creates a concatenated vendors.js file for production mode i.e. if MODE_DEV is false.
-function vendorjs() {
-  var scripts = [
-    // Order of dependencies matter in DEV_MOD: false.
-    // All the vendors scripts will be concatenated in single vendors.js file in production mode.
-    // Bootstrap JS
-    PATHS.src.js + "/vendors/bootstrap/bootstrap.bundle.min.js",
-    // Root Files in the vendors folder are automatically picked and processed
-    PATHS.src.js + "/vendors/*.js",
-  ];
-
-  return src(scripts)
+// Copies files from assets_src/js/vendors folder to assets/js
+function vendorScripts() {
+  return src(PATHS.src.js + "/vendors/*.js")
     .pipe(
       plumber({
         errorHandler: function (err) {
@@ -46,14 +36,12 @@ function vendorjs() {
         },
       })
     )
-    .pipe(gulpIf(MODE == "production", concat("vendors.js")))
     .pipe(dest(PATHS.assets.js));
 }
 
-// Build custom theme scripts without bundling
-// Simply Concatenates all the .js files within src/js/scripts/* folder and src/js/scripts.js
-function concatScripts() {
-  return src([PATHS.src.js + "/scripts/*.js", PATHS.src.js + "/scripts.js"], {
+// Transpiles JS files from assets_src/js/scripts folder to assets/js
+function transpileScripts() {
+  return src(PATHS.src.js + "/scripts/*.js", {
     sourcemaps: true,
   })
     .pipe(
@@ -64,7 +52,6 @@ function concatScripts() {
         },
       })
     )
-    .pipe(concat("scripts.js"))
     .pipe(babel({ presets: ["@babel/preset-env"] }))
     .pipe(dest(PATHS.assets.js, { sourcemaps: "./maps" }))
     .pipe(gulpIgnore.exclude((file) => /map?$/.test(file.path)))
@@ -82,10 +69,9 @@ function concatScripts() {
     .pipe(gulpIf(COMPRESSION, dest(PATHS.assets.js, { sourcemaps: "./maps" })));
 }
 
-// creates script.bundle for custom theme scripts
-// build /src/js/scripts.bundle.js file via Webpack
-function scriptsBundle() {
-  return src(PATHS.src.js + "/scripts.bundle.js")
+// build /assets_src/js/webpack/index.js file via Webpack
+function webpackScripts() {
+  return src(PATHS.src.js + "/webpack/index.js")
     .pipe(named())
     .pipe(
       webpack(webpackConfig, webpackCompiler, function (err, stats) {
@@ -96,14 +82,6 @@ function scriptsBundle() {
     .pipe(dest(PATHS.assets.js));
 }
 
-function themescripts() {
-  if (JSBUILD == "webpack") {
-    return scriptsBundle();
-  } else {
-    return concatScripts();
-  }
-}
+const scripts = parallel(transpileScripts, webpackScripts, vendorScripts);
 
-const scripts = parallel(themescripts, vendorjs);
-
-module.exports = { vendorjs, themescripts, scripts };
+module.exports = { transpileScripts, webpackScripts, vendorScripts, scripts };

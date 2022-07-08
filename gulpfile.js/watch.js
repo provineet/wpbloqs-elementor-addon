@@ -4,33 +4,29 @@ const { watch: gulpWatch, series } = require("gulp");
 
 const { reloadBrowser } = require("./browsersync");
 
-const { themescss, vendorscss } = require("./scss");
-const { vendorjs, themescripts } = require("./scripts");
+const { metaScss, globalScss, widgetScss } = require("./scss");
+const {
+  transpileScripts,
+  webpackScripts,
+  vendorScripts,
+} = require("./scripts");
 const { imagemin } = require("./imagemin");
-const { sprites } = require("./sprites");
 // const unhandledError = require("cli-handle-unhandled");
 
 function watchSCSS() {
   // Watches for SCSS file changes
   if (watchFiles.scss == true) {
     gulpWatch(
-      [
-        PATHS.src.scss + "/vendors/**/*.scss",
-        PATHS.src.scss + "/vendors.scss",
-        PATHS.src.scss + "/abstract/_variables.scss",
-      ],
-      series(vendorscss, reloadBrowser)
+      [PATHS.src.scss + "/meta/**/*.scss"],
+      series(metaScss, reloadBrowser)
     );
-
     gulpWatch(
-      PATHS.src.scss + "/**/*.scss",
-      {
-        ignored: [
-          PATHS.src.scss + "/vendors/**/*.scss",
-          PATHS.src.scss + "/vendors.scss",
-        ],
-      },
-      series(themescss, reloadBrowser)
+      [PATHS.src.scss + "/widgets/**/*.scss"],
+      series(widgetScss, reloadBrowser)
+    );
+    gulpWatch(
+      [PATHS.src.scss + "/global.scss"],
+      series(globalScss, reloadBrowser)
     );
   }
 }
@@ -40,17 +36,25 @@ function watchJS() {
   if (watchFiles.js == true) {
     gulpWatch(
       PATHS.src.js + "/vendors/**/*.js",
-      series(vendorjs, reloadBrowser)
+      series(vendorScripts, reloadBrowser)
     );
     gulpWatch(
-      [
-        `${PATHS.src.js}/scripts/*.js`,
-        `${PATHS.src.js}/scripts.js`,
-        `${PATHS.src.js}/modules/*.js`,
-        `${PATHS.src.js}/scripts.modules.js`,
-      ],
-      series(themescripts, reloadBrowser)
+      PATHS.src.js + "/webpack/**/*.js",
+      series(webpackScripts, reloadBrowser)
     );
+    gulpWatch(
+      PATHS.src.js + "/scripts/**/*.js",
+      series(transpileScripts, reloadBrowser)
+    );
+    // gulpWatch(
+    //   [
+    //     `${PATHS.src.js}/scripts/*.js`,
+    //     `${PATHS.src.js}/scripts.js`,
+    //     `${PATHS.src.js}/modules/*.js`,
+    //     `${PATHS.src.js}/scripts.modules.js`,
+    //   ],
+    //   series(themescripts, reloadBrowser)
+    // );
   }
 }
 
@@ -58,12 +62,6 @@ function watchImg() {
   // Watches for Images file changes inside ./src
   if (watchFiles.images == true) {
     gulpWatch(PATHS.src.images + "/*", series(imagemin, reloadBrowser));
-  }
-
-  // Watches for sprite_images folder changes inside ./src
-  // Sprite generation will in-turn call SCSS and Images watcher and hence reload the browser as a side-effect
-  if (watchFiles.sprites == true) {
-    gulpWatch(PATHS.src.sprites + "/*", series(sprites));
   }
 }
 
