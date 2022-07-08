@@ -1,7 +1,7 @@
 {
   "name": "wpbloqsaddons",
-  "version": "1.4.1",
-  "description": "A modern frontend development boilerplate with Gulp, Webpack, SCSS, Bootstrap 4.5.x, FontAwesome 5, Assets Optimization and more.",
+  "version": "1.0.0",
+  "description": "A WordPress plugin that adds up beautiful widgets, dynamic tags and more to extend the WordPress Elementor Plugin.",
   "main": "index.js",
   "scripts": {
     "postinstall": "gulp copyassets",
