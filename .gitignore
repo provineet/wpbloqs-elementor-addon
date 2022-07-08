@@ -2,7 +2,7 @@
 node_modules/
 
 # ignore vendors directory
-vendors/
+vendor/
 
 # ignore macos .DS_Store
 .DS_Store
