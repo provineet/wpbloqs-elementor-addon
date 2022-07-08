@@ -1,5 +1,5 @@
 {
-  "name": "bootflow",
+  "name": "wpbloqsaddons",
   "version": "1.4.1",
   "description": "A modern frontend development boilerplate with Gulp, Webpack, SCSS, Bootstrap 4.5.x, FontAwesome 5, Assets Optimization and more.",
   "main": "index.js",
