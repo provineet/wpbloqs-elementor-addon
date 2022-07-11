@@ -5,7 +5,6 @@ const { scss } = require("./scss");
 const { browsersync } = require("./browsersync");
 const { minify } = require("./minify");
 const { scripts } = require("./scripts");
-const { imgmin } = require("./imagemin");
 const { watch } = require("./watch");
 
 const { build, devbuild } = require("./createdist");
@@ -14,7 +13,7 @@ const { build, devbuild } = require("./createdist");
 // Compiles SCSS, JS, Optimize Images, Create Sprite Images and SCSS
 // Create a dev server using browserSync and serve it on localhost
 // To change your proxy address edit gulpconfig.json
-const serve = series(parallel(scss, scripts, imgmin), browsersync, watch);
+const serve = series(parallel(scss, scripts), browsersync, watch);
 
 module.exports = {
   serve,
