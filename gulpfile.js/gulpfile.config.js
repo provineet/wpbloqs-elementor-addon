@@ -7,7 +7,7 @@ module.exports = {
   JSBUILD: "concat",
   browserSyncOptions: {
     // localhost url to proxy
-    proxy: "wpdev.local",
+    proxy: "qasolved.local",
     notify: false,
   },
   watchFiles: {

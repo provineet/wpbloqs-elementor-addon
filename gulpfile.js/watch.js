@@ -15,10 +15,7 @@ const {
 function watchSCSS() {
   // Watches for SCSS file changes
   if (watchFiles.scss == true) {
-    gulpWatch(
-      [PATHS.src.scss + "/meta/**/*.scss"],
-      series(scss, reloadBrowser)
-    );
+    gulpWatch([PATHS.src.scss + "**/*.scss"], series(scss, reloadBrowser));
   }
 }
 
