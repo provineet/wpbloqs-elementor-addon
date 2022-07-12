@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"wpb_widgets.min.css"}
+{"version":3,"sources":["wpb_widgets.scss"],"names":[],"mappings":"AAEA,qBACE,WAAA,KACA,wBACE,QAAA","file":"wpb_widgets.min.css","sourcesContent":[".wpbloqs-list {\n}\n.wpbloqs-inline-list {\n  list-style: none;\n  li {\n    display: inline-block;\n  }\n}\n"]}
