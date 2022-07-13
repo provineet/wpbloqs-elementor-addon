@@ -148,7 +148,7 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			array(
-				'label' => esc_html__( 'Content', 'plugin-name' ),
+				'label' => esc_html__( 'Content', 'wpbloqs-elementor-addon' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -393,7 +393,7 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 				'label'     => esc_html__( 'Color', 'wpbloqs-elementor-addon' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-list-widget-text::marker' => 'color: {{VALUE}};',
+					'{{WRAPPER}} a i' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -419,8 +419,7 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					// '{{WRAPPER}} .elementor-list-widget' => 'padding-left: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .elementor-list-widget' => 'padding-inline-start: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} a i' => 'font-size: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -451,7 +450,7 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 				),
 				'selectors'  => array(
 					// '{{WRAPPER}} .elementor-list-widget' => 'padding-left: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .elementor-list-widget' => 'padding-inline-start: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} a i' => 'margin-right: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -478,31 +477,39 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 
 		?>
 <ul <?php $this->print_render_attribute_string( 'list' ); ?>>
-	<?php
+		<?php
 		foreach ( $settings['tab_items'] as $index => $item ) {
 					$repeater_setting_key = $this->get_repeater_setting_key( 'label', 'tab_items', $index );
 					$this->add_render_attribute( $repeater_setting_key, 'class', 'elementor-list-widget-text' );
 					$this->add_inline_editing_attributes( $repeater_setting_key );
 			?>
 	<li <?php $this->print_render_attribute_string( $repeater_setting_key ); ?>>
-		<?php
+			<?php
 			$title = $item['label'];
+
+			ob_start();
+			\Elementor\Icons_Manager::render_icon( $item['icon'], array( 'aria-hidden' => 'true' ) );
+			$icon_html = ob_get_clean();
 
 			if ( ! empty( $item['link'] ) ) {
 				$item['link'] = array(
-					'url'               => $item['link'],
-					'custom_attributes' => 'class|wpb-anchor',
+					'url'               => trim( $item['link'] ),
+					'custom_attributes' => 'class|wpb-anchor,data-rel|smooth-scroll',
 				);
 				$this->add_link_attributes( "link_{$index}", $item['link'] );
-				$linked_title = sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( "link_{$index}" ), $title );
-				echo $linked_title;
+				echo wp_sprintf(
+					'<a %s>%s%s</a>',
+					$this->get_render_attribute_string( "link_{$index}" ),
+					$icon_html,
+					esc_html( $title )
+				);
 			}
 			?>
 	</li>
-	<?php
+			<?php
 		}
 		?>
 </ul>
-<?php
+		<?php
 	}
 }

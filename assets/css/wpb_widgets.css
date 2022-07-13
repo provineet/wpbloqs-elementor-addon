@@ -4,3 +4,6 @@
 .wpbloqs-inline-list li {
   display: inline-block;
 }
+.wpbloqs-inline-list li a i {
+  margin-right: 5px;
+}

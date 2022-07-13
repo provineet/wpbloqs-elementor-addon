@@ -4,5 +4,10 @@
   list-style: none;
   li {
     display: inline-block;
+    a {
+      i {
+        margin-right: 5px;
+      }
+    }
   }
 }
