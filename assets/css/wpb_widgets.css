@@ -1,5 +1,6 @@
 .wpbloqs-inline-list {
   list-style: none;
+  margin-bottom: 0;
 }
 .wpbloqs-inline-list li {
   display: inline-block;
