@@ -5,6 +5,9 @@
   li {
     display: inline-block;
     a {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       i {
         margin-right: 5px;
       }
