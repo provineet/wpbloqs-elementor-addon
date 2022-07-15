@@ -56,24 +56,21 @@ abstract class Anchor_Tabs {
 			$list   = '';
 			for ( $i = 0; $i < count( $_POST['wpb_anchor_id'] ); $i++ ) {
 				if ( ( $_POST['wpb_anchor_id'][ $i ] !== '' ) && ( $_POST['wpb_tab_label'][ $i ] !== '' ) ) {
-					$values[] = array( $_POST['wpb_anchor_id'][ $i ], $_POST['wpb_tab_label'][ $i ] );
-					$list    .= '<a href="#' . $_POST['wpb_anchor_id'][ $i ] . '">' . $_POST['wpb_tab_label'][ $i ] . '</a>';
+					$values[] = array(
+						'link'  => $_POST['wpb_anchor_id'][ $i ],
+						'label' => $_POST['wpb_tab_label'][ $i ],
+					);
 				}
 			}
 
 			if ( ! empty( $values ) ) {
 				update_post_meta(
 					$post_id,
-					'_wpb_anchor_tabs',
-					$values
-				);
-				update_post_meta(
-					$post_id,
 					'wpb_anchor_tabs',
-					$list
+					maybe_serialize( $values )
 				);
 			} else {
-				delete_post_meta( $post_id, '_wpb_anchor_tabs' );
+				delete_post_meta( $post_id, 'wpb_anchor_tabs' );
 			}
 		}
 	}
@@ -85,7 +82,7 @@ abstract class Anchor_Tabs {
 	 * @param \WP_Post $post   Post object.
 	 */
 	public static function html( $post ) {
-		$anchors = get_post_meta( $post->ID, '_wpb_anchor_tabs', true );
+		$anchors = maybe_unserialize( get_post_meta( $post->ID, 'wpb_anchor_tabs', true ) );
 		?>
 <div class="anchor_group">
 	<div class="wpb_fields" id="sortable">
@@ -101,19 +98,19 @@ abstract class Anchor_Tabs {
 				<div class="row">
 					<div class="col-6">
 						<label>ID</label>
-						<input type="text" name="wpb_anchor_id[]" id="wpb_anchor_id_<?php echo $count; ?>" value="<?php echo $anchor[0]; ?>">
+						<input type="text" name="wpb_anchor_id[]" id="wpb_anchor_id_<?php echo $count; ?>" value="<?php echo $anchor['link']; ?>">
 					</div>
 					<!-- /.col-6 -->
 					<div class="col-6">
 						<label>Label</label>
-						<input type="text" name="wpb_tab_label[]" id="wpb_tab_label_<?php echo $count; ?>" value="<?php echo $anchor[1]; ?>">
+						<input type="text" name="wpb_tab_label[]" id="wpb_tab_label_<?php echo $count; ?>" value="<?php echo $anchor['label']; ?>">
 					</div>
 					<!-- /.col-6 -->
 					<?php
 					if ( $count !== 1 ) :
 						?>
 					<button data-id="<?php echo 'wpb-anchor-' . esc_attr( $count ); ?>" class="wpb_delete">+</button>
-					<?php
+						<?php
 						endif;
 						$count++;
 					?>
@@ -140,6 +137,6 @@ abstract class Anchor_Tabs {
 	</div>
 	<!-- /.container -->
 </div>
-<?php
+		<?php
 	}
 }

@@ -266,6 +266,20 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 				)
 			);
 
+			$this->add_control(
+				'meta-key',
+				array(
+					'label'     => esc_html__( 'Meta Key', 'plugin-name' ),
+					'type'      => \Elementor\Controls_Manager::TEXT,
+					'dynamic'   => array(
+						'active' => true,
+					),
+					'condition' => array(
+						'tab_type' => 'yes',
+					),
+				)
+			);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -475,6 +489,10 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 			$this->add_render_attribute( 'list', 'class', 'wpbloqs-anchor-widget wpbloqs-list' );
 		}
 
+		if ( $settings['meta-key'] ) {
+			$settings['tab_items'] = maybe_unserialize( $settings['meta-key'] );
+		}
+
 		?>
 <ul <?php $this->print_render_attribute_string( 'list' ); ?>>
 		<?php
@@ -493,7 +511,7 @@ class Anchor_Tabs_Widget extends \Elementor\Widget_Base {
 
 			if ( ! empty( $item['link'] ) ) {
 				$item['link'] = array(
-					'url'               => trim( $item['link'] ),
+					'url'               => '#' . trim( $item['link'] ),
 					'custom_attributes' => 'class|wpb-anchor,data-rel|smooth-scroll',
 				);
 				$this->add_link_attributes( "link_{$index}", $item['link'] );
